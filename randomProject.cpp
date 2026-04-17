@@ -7,6 +7,19 @@ void menuMatriks();
 void menuBitwise();
 void menuAkademik();
 void menuAkarKuadrat();
+void catatRiwayat(string pesan);
+
+void catatRiwayat(string pesan) {
+    // Membuka file "riwayat_project.txt"
+    ofstream file("riwayat_project.txt", ios::app); 
+    
+    if (file.is_open()) {
+        file << pesan << "\n";
+        file.close();
+    } else {
+        cout << "Error: Sistem gagal membuka atau membuat file riwayat!\n";
+    }
+}
 
 int main() {
     int pilihan;
@@ -184,18 +197,31 @@ void menuAkademik() {
     cout << "Nilai Akhir Anda : " << nilaiAkhir << "\n";
     cout << "Predikat         : ";
 
+    // Bikin variabel string buat nyimpen kalimat yang mau ditulis ke file txt
+    string teksRiwayat = "Nilai Akhir: " + to_string(nilaiAkhir) + " | Predikat: ";
+
     // Logika if-else beruntun untuk nentuin predikat
     if (nilaiAkhir >= 85) {
         cout << "A (Sangat Baik)\n";
+        teksRiwayat += "A"; // Tambahin huruf A ke teksRiwayat
     } else if (nilaiAkhir >= 70) {
         cout << "B (Baik)\n";
+        teksRiwayat += "B";
     } else if (nilaiAkhir >= 55) {
         cout << "C (Cukup)\n";
+        teksRiwayat += "C";
     } else if (nilaiAkhir >= 40) {
         cout << "D (Kurang)\n";
+        teksRiwayat += "D";
     } else {
         cout << "E (Gagal - Silakan ngulang tahun depan ya!)\n";
+        teksRiwayat += "E";
     }
+    
+    // PANGGIL FUNGSI PENCATAT DI SINI
+    catatRiwayat(teksRiwayat);
+    cout << "\n[!] Data berhasil disimpan ke riwayat_project.txt\n";
+    
     cout << "-------------------------------------\n";
 }
 
